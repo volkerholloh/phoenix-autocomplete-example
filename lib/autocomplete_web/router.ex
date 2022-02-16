@@ -18,6 +18,13 @@ defmodule AutocompleteWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/colors", ColorLive.Index, :index
+    live "/colors/new", ColorLive.Index, :new
+    live "/colors/:id/edit", ColorLive.Index, :edit
+
+    live "/colors/:id", ColorLive.Show, :show
+    live "/colors/:id/show/edit", ColorLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

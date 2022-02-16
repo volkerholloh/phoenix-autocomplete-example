@@ -1,0 +1,39 @@
+<h1>Listing Colors</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.color_index_path(@socket, :index)}>
+    <.live_component
+      module={AutocompleteWeb.ColorLive.FormComponent}
+      id={@color.id || :new}
+      title={@page_title}
+      action={@live_action}
+      color={@color}
+      return_to={Routes.color_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Color</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="colors">
+    <%= for color <- @colors do %>
+      <tr id={"color-#{color.id}"}>
+        <td><%= color.color %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.color_show_path(@socket, :show, color) %></span>
+          <span><%= live_patch "Edit", to: Routes.color_index_path(@socket, :edit, color) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: color.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Color", to: Routes.color_index_path(@socket, :new) %></span>

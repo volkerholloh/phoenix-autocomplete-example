@@ -1,0 +1,26 @@
+<h1>Show Color</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.color_show_path(@socket, :show, @color)}>
+    <.live_component
+      module={AutocompleteWeb.ColorLive.FormComponent}
+      id={@color.id}
+      title={@page_title}
+      action={@live_action}
+      color={@color}
+      return_to={Routes.color_show_path(@socket, :show, @color)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Color:</strong>
+    <%= @color.color %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.color_show_path(@socket, :edit, @color), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.color_index_path(@socket, :index) %></span>
