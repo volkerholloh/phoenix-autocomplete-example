@@ -47,6 +47,9 @@ defmodule AutocompleteWeb do
       use Phoenix.LiveView,
         layout: {AutocompleteWeb.LayoutView, "live.html"}
 
+      # Import basic rendering functionality (render, render_layout, etc)
+      import Phoenix.View
+
       unquote(view_helpers())
     end
   end
@@ -92,6 +95,9 @@ defmodule AutocompleteWeb do
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
       import AutocompleteWeb.LiveHelpers
+
+      # Awesomplete autocomplete widget
+      import PhoenixFormAwesomplete
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
