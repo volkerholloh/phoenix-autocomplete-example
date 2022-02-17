@@ -1,20 +1,23 @@
 <div>
-  <h2><%= @title %></h2>
+  <h2>
+    <%= @title %>
+  </h2>
 
-  <.form
-    let={f}
-    for={@changeset}
-    id="color-form"
-    phx-target={@myself}
-    phx-change="validate"
-    phx-submit="save">
-  
+  <.form let={f} for={@changeset} id="color-form" phx-target={@myself} phx-change="validate" phx-submit="save">
+
     <%= label f, :color %>
-    <%= text_input f, :color %>
-    <%= error_tag f, :color %>
-  
-    <div>
-      <%= submit "Save", phx_disable_with: "Saving..." %>
-    </div>
+
+      <!-- https://projects.verou.me/awesomplete/#advanced-examples -->
+      <div id="autocomplete_color" phx-update="ignore">
+        <input id="autocomplete_input" type="text" name="color[color]" data-list="gelb, grün, blau, pink, rot"
+          phx-hook="Awesomhook">
+        <%#= text_input f, :color, data-list=["blau", "gelb" , "rot" , "gelb" , "grün" ], id: "autocomplete_input" %>
+      </div>
+
+      <%= error_tag f, :color %>
+
+        <div>
+          <%= submit " Save" , phx_disable_with: "Saving..." %>
+        </div>
   </.form>
 </div>
