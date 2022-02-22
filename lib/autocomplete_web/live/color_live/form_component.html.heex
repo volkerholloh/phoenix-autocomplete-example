@@ -1,20 +1,38 @@
 <div>
-  <h2><%= @title %></h2>
+  <h2>
+    <%= @title %>
+  </h2>
 
-  <.form
-    let={f}
-    for={@changeset}
-    id="color-form"
-    phx-target={@myself}
-    phx-change="validate"
-    phx-submit="save">
-  
+  <.form let={f} for={@changeset} id="color-form" phx-target={@myself} phx-change="validate" phx-submit="save">
+
     <%= label f, :color %>
-    <%= text_input f, :color %>
-    <%= error_tag f, :color %>
-  
-    <div>
-      <%= submit "Save", phx_disable_with: "Saving..." %>
-    </div>
+
+      <div id="autocomplete1" phx-update="ignore">
+        <%= text_input f, :color %>
+          <div><span id="awe-color-result"></span> &#x21B2;</div>
+          <%= copy_to_id(f , :color, "label" , "#awe-color-result" ) %>
+
+
+            <%= awesomplete_script( f, :color, %{ minChars: 1, filter: "AwesompleteUtil.filterContains" , list: "[
+           { label: \" <b style='color:black'>black</b>\", value: 'black' },
+              { label: \"<b style='color:blue'>blue</b>\", value: 'blue' },
+              { label: \"<b style='color:brown'>brown</b>\", value: 'brown' },
+              { label: \"<b style='color:green'>green</b>\", value: 'green' },
+              { label: \"<b style='color:orange'>orange</b>\", value: 'orange'},
+              { label: \"<b style='color:pink'>pink</b>\", value: 'pink' },
+              { label: \"<b style='color:purple'>purple</b>\", value: 'purple'},
+              { label: \"<b style='color:red'>red</b>\", value: 'red' },
+              { label: \"<b style='color:yellow'>yellow</b>\", value: 'yellow'}
+              ]"
+              }
+              ) %>
+      </div>
+
+
+      <%= error_tag f, :color %>
+
+        <div>
+          <%= submit "Save" , phx_disable_with: "Saving..." %>
+        </div>
   </.form>
 </div>
